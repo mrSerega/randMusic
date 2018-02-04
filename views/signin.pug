@@ -1,0 +1,60 @@
+doctype
+head
+    title signin
+    script(
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    )
+    script(
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+    )
+    script(
+        scr="./pages/signin.js"
+    )
+    link(
+        rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    )
+    body
+        //card
+        div(
+            class = "jumbotron"
+        )
+            //username
+            div(
+                class="input-group mb-3"
+            )
+                div(
+                    class="input-group-prepend"
+                )
+                    span(
+                        class="input-group-text"
+                        id="basic-addon1"
+                    ) Uaser Name
+                input(
+                    type="text"
+                    class="form-control"
+                    placeholder="Username"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                )
+            //password
+            div(
+                class="input-group mb-3"
+            )
+                div(
+                    class="input-group-prepend"
+                )
+                    span(
+                        class="input-group-text"
+                        id="basic-addon1"
+                    ) Password
+                input(
+                    type="password"
+                    class="form-control"
+                    placeholder="Password"
+                    aria-describedby="basic-addon1"
+                )
+            //input button
+            button(
+                type="button"
+                class="btn btn-success"
+            ) SignIn

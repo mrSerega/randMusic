@@ -2,6 +2,8 @@ var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var pages = require('./pages/index.js');
+
 var bodyParser = require('body-parser');
 var mongoClient = require("mongodb").MongoClient;
 
@@ -34,24 +36,28 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(express.static(__dirname + '/public'))
-    .use(cookieParser());
+app.use(express.static(__dirname + '/public')).use(cookieParser());
 
-app.get('/login', function (req, res) {
+app.get('/login', function(req, res) {
 
     var state = generateRandomString(16);
-    res.cookie(stateKey, state);
+  res.cookie(stateKey, state);
 
-    // your application requests authorization
-    var scope = 'user-read-private user-read-email';
-    res.redirect('https://accounts.spotify.com/authorize?' +
-        querystring.stringify({
-            response_type: 'code',
-            client_id: client_id,
-            scope: scope,
-            redirect_uri: redirect_uri,
-            state: state
-        }));
+  // your application requests authorization
+  var scope = 'user-read-private user-read-email';
+  res.redirect('https://accounts.spotify.com/authorize?' +
+    querystring.stringify({
+      response_type: 'code',
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
+    }));
+
+});
+
+app.get('/game', function(req, res){
+    res.send(pages.signin());
 });
 
 app.get('/callback', function (req, res) {
