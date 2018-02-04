@@ -11,7 +11,7 @@ var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-const pages = require('pages');
+var pages = require('./pages/index.js');
 
 var client_id = 'bb843121ea624fb0a2705c84f226bc4a'; // Your client id
 var client_secret = '5c7ae70f48fa43a4957e99468fda8901'; // Your secret
@@ -40,7 +40,24 @@ app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
 
 app.get('/login', function(req, res) {
-    //res.send('kekekek');
+
+    var state = generateRandomString(16);
+  res.cookie(stateKey, state);
+
+  // your application requests authorization
+  var scope = 'user-read-private user-read-email';
+  res.redirect('https://accounts.spotify.com/authorize?' +
+    querystring.stringify({
+      response_type: 'code',
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
+    }));
+
+});
+
+app.get('/game', function(req, res){
     res.send(pages.signin());
 });
 
